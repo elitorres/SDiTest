@@ -1,0 +1,33 @@
+﻿@model SDiProgrammingTestProject.Models.PersonGPAViewModel
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("Create", "Home", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.GPAID)
+    @Html.HiddenFor(m => m.PersonID)
+    <div class="card">
+        <div class="card-block p-2">
+
+            <div class="m-1">
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control input-sm", @placeholder = "First Name" })
+            </div>
+            <div class="m-1">
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control input-sm", @placeholder = "Last Name" })
+            </div>
+            <div class="m-1">
+                @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control input-sm", @placeholder = "Date Of Birth" })
+            </div>
+            <div class="m-1">
+                @Html.TextBoxFor(m => m.GPA, new { @class = "form-control input-sm", @placeholder = "GPA" })
+            </div>
+            <div class="form-group col-md-12 text-center">
+               
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+

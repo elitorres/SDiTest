@@ -1,0 +1,59 @@
+﻿@model SDiProgrammingTestProject.Models.HomeViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<script>
+    Vue.component('demo-grid', {
+        template: '#grid-template',
+        props: {
+            data: Array,
+            columns: Array,
+        }
+    })
+</script>
+
+<div id="demo">
+
+        <demo-grid
+                   :data="gridData"
+                   :columns="gridColumns">
+
+        </demo-grid>
+   
+</div>
+<div id="personGPAForm">
+    @{ Html.RenderAction("_PersonGPAForm");}
+</div>
+
+<script type="text/x-template" id="grid-template">
+    <table>
+        <thead>
+            <tr>
+                <th v-for="key in columns">
+                    {{key}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="entry in data">
+                <td v-for="key in columns">
+                    {{entry[key]}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</script>
+
+<script>
+    var pGPAData = @Html.Raw(Json.Encode(Model.PersonGPAs));
+
+    console.log('pGPAData', pGPAData);
+    var demo = new Vue({
+        el: '#demo',
+        data: {
+            gridColumns: ['FirstName', 'LastName', 'DateOfBirth', 'GPA'],
+            gridData: pGPAData
+        }
+        })
+</script>

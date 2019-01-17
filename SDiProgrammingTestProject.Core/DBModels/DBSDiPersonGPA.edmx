@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SDiProgrammingTestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SDiProgrammingTest.dbo.vPersonGPA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vPersonGPA">
+          <Key>
+            <PropertyRef Name="GPAID" />
+            <PropertyRef Name="PersonID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="DateOfBirth" />
+            <PropertyRef Name="GPA" />
+            <PropertyRef Name="DateCreated" />
+            <PropertyRef Name="Enabled" />
+          </Key>
+          <Property Name="GPAID" Type="int" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="DateOfBirth" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="GPA" Type="float" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Enabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <Function Name="CreatePersonGPA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="firstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="lastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="dateOfBirth" Type="datetime2" Mode="In" />
+          <Parameter Name="gpaTotal" Type="float" Mode="In" />
+          <Parameter Name="personID" Type="int" Mode="In" />
+          <Parameter Name="gpaID" Type="int" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="SDiProgrammingTestModelStoreContainer">
+          <EntitySet Name="vPersonGPA" EntityType="Self.vPersonGPA" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vPersonGPA].[GPAID] AS [GPAID], 
+    [vPersonGPA].[PersonID] AS [PersonID], 
+    [vPersonGPA].[FirstName] AS [FirstName], 
+    [vPersonGPA].[LastName] AS [LastName], 
+    [vPersonGPA].[DateOfBirth] AS [DateOfBirth], 
+    [vPersonGPA].[GPA] AS [GPA], 
+    [vPersonGPA].[DateCreated] AS [DateCreated], 
+    [vPersonGPA].[Enabled] AS [Enabled]
+    FROM [dbo].[vPersonGPA] AS [vPersonGPA]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SDiProgrammingTestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SDiProgrammingTestEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="CreatePersonGPA">
+            <Parameter Name="firstName" Mode="In" Type="String" />
+            <Parameter Name="lastName" Mode="In" Type="String" />
+            <Parameter Name="dateOfBirth" Mode="In" Type="DateTime" />
+            <Parameter Name="gpaTotal" Mode="In" Type="Double" />
+            <Parameter Name="personID" Mode="In" Type="Int32" />
+            <Parameter Name="gpaID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="vPersonGPAs" EntityType="SDiProgrammingTestModel.vPersonGPA" />
+        </EntityContainer>
+        <EntityType Name="vPersonGPA">
+          <Key>
+            <PropertyRef Name="GPAID" />
+            <PropertyRef Name="PersonID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="DateOfBirth" />
+            <PropertyRef Name="GPA" />
+            <PropertyRef Name="DateCreated" />
+            <PropertyRef Name="Enabled" />
+          </Key>
+          <Property Name="GPAID" Type="Int32" Nullable="false" />
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="GPA" Type="Double" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Enabled" Type="Boolean" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SDiProgrammingTestModelStoreContainer" CdmEntityContainer="SDiProgrammingTestEntities">
+          <FunctionImportMapping FunctionImportName="CreatePersonGPA" FunctionName="SDiProgrammingTestModel.Store.CreatePersonGPA" />
+          <EntitySetMapping Name="vPersonGPAs">
+            <EntityTypeMapping TypeName="SDiProgrammingTestModel.vPersonGPA">
+              <MappingFragment StoreEntitySet="vPersonGPA">
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="GPA" ColumnName="GPA" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="GPAID" ColumnName="GPAID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
